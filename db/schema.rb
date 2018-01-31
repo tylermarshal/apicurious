@@ -21,10 +21,16 @@ ActiveRecord::Schema.define(version: 20180129182740) do
     t.string "name"
     t.text "bio"
     t.string "company"
+    t.string "location"
     t.string "email"
     t.string "token"
-    t.datetime "updated_at", null: false
+    t.string "last_updated"
+    t.string "avatar"
+    t.integer "followers"
+    t.integer "following"
+    t.integer "public_repos"
     t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

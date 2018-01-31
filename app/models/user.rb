@@ -11,6 +11,7 @@ class User < ApplicationRecord
         user
       else
         self.create_or_update(user, auth_info)
+        user.save!
       end
     end
   end
@@ -29,9 +30,6 @@ class User < ApplicationRecord
     user_type.email              = auth_info.extra.raw_info.email
     user_type.last_updated       = auth_info.extra.raw_info.updated_at
     user_type.token              = auth_info.credentials.token
-    if user_type == user
-      user.save!
-    end
   end
 
 end

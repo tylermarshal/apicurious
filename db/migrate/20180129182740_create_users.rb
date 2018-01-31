@@ -6,11 +6,16 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :name
       t.text :bio
       t.string :company
+      t.string :location
       t.string :email
       t.string :token
-      t.datetime :updated_at
-
+      t.string :last_updated
+      t.string :avatar
+      t.integer :followers
+      t.integer :following
+      t.integer :public_repos
       t.timestamps
+
     end
   end
 end

@@ -10,6 +10,10 @@ class GithubService
     json_parse(conn.get("/users/#{current_user.username}/events"))
   end
 
+  def repos
+    json_parse(conn.get("/user/repos"))
+  end
+
   def commit_conn(commit_url)
     Faraday.new(url: commit_url) do |faraday|
       faraday.headers['Authorization'] = ["token #{current_user.token}"]

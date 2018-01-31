@@ -11,16 +11,7 @@ class DashboardController < ApplicationController
     response = conn.get("/users/#{current_user.username}/orgs")
     @user_orgs = JSON.parse(response.body, symbolize_names: true)
     response = conn.get("/users/#{current_user.username}/starred")
-    @user_starred = JSON.parse(response.body, symbolize_names: true)
-    response = conn.get("/users/#{current_user.username}/events")
-    @user_events = JSON.parse(response.body, symbolize_names: true).map do |event|
-      if event[:type] == "PushEvent"
-        PushEvent.new(event)
-      elsif event[:type] == "CreateEvent"
-        CreateEvent.new(event)
-      elsif event[:type] == "PullRequestEvent"
-        PullRequestEvent.new(event)
-      end
-    end
+    @user_starred = GithubService.new(current_user).starred
+    @user_events = EventService.new(current_user).formatted_events
   end
 end

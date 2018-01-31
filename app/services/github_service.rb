@@ -17,6 +17,10 @@ class GithubService
     end
   end
 
+  def orgs
+    json_parse(conn.get("/users/#{current_user.username}/orgs"))
+  end
+
   def starred
     json_parse(conn.get("/users/#{current_user.username}/starred"))
   end

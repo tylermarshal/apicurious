@@ -8,9 +8,7 @@ class DashboardController < ApplicationController
     @user_repos = JSON.parse(response.body, symbolize_names: true).map do |repo|
       Repository.new(repo)
     end
-    response = conn.get("/users/#{current_user.username}/orgs")
-    @user_orgs = JSON.parse(response.body, symbolize_names: true)
-    response = conn.get("/users/#{current_user.username}/starred")
+    @user_orgs = GithubService.new(current_user).orgs
     @user_starred = GithubService.new(current_user).starred
     @user_events = EventService.new(current_user).formatted_events
   end

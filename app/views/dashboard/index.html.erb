@@ -1,0 +1,11 @@
+<%= image_tag(current_user.avatar) %>
+Number of Followers: <%= current_user.followers %>
+Number of Users Following: <%= current_user.following %>
+Number of Starred Repos: <%= @user_starred.count %>
+<% if @user_orgs.empty? == false %>
+  Organizations: <%= @user_orgs.first %>
+<% end %>
+Repositories:
+<% @user_repos.each do |repo| %>
+  <%= link_to repo.name, repo.url %>
+<% end %>

@@ -1,9 +1,11 @@
 class Commit
 
-  attr_reader :message, :api_url, :date, :commit_url
+  attr_reader :message, :api_url, :date, :commit_url,
+              :total, :additions, :deletions, :repo,
+              :public_status
 
   def initialize(repo, public_status, commit)
-    @rep = repo
+    @repo = repo
     @public_status = public_status
     @message = commit[:commit][:message]
     @date = commit[:commit][:author][:date]

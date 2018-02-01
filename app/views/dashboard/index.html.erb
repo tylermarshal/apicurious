@@ -2,10 +2,32 @@
 Number of Followers: <%= current_user.followers %>
 Number of Users Following: <%= current_user.following %>
 Number of Starred Repos: <%= @user_starred.count %>
+<br>
 <% if @user_orgs.empty? == false %>
   Organizations: <%= @user_orgs.first %>
 <% end %>
+<br>
 Repositories:
 <% @user_repos.each do |repo| %>
   <%= link_to repo.name, repo.url %>
+<% end %>
+<br>
+Contribution Activity:
+<%= Date.today.strftime("%B %Y") %>
+<% commits = Hash.new(0) %>
+<% @user_events[PushEvent].each do |event| %>
+  <% event.create_commits.each do |commit| %>
+    <% if Date.parse(commit.date).month == Date.today.month %>
+      <% commits[commit.repo] += 1 %>
+    <% end %>
+  <% end %>
+<% end %>
+<% commits.each do |repo, count| %>
+  <%= repo %><%= count %>
+<% end %>
+<% @user_events[CreateEvent].each do |event| %>
+  <% if Date.parse(event.created_at).month == Date.today.month && event.type == "repository" %>
+    <%= link_to event.repo, "https://github.com/#{event.repo}" %>
+    <%= Date.parse(event.created_at).strftime("%b %d") %>
+  <% end %>
 <% end %>

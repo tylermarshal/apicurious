@@ -1,6 +1,6 @@
 class CreateEvent
 
-  attr_reader :repo, :type, :created_at
+  attr_reader :repo, :type, :created_at, :public
 
   def initialize(event)
     @repo = event[:repo][:name]

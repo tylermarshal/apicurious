@@ -5,26 +5,7 @@ describe "a user goes to the homepage" do
     it "the user logs in with github" do
       Capybara.app = Apicurious::Application
 
-      # first, set OmniAuth to run in test mode
-      OmniAuth.config.test_mode = true
-      # then, provide a set of fake oauth data that
-      # omniauth will use when a user tries to authenticate:
-      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({"provider"=>"github",
- "uid"=>12345,
- "credentials"=>{"token"=>ENV["GITHUB_TOKEN"]},
- "extra"=>
-  {"raw_info"=>
-    {"login"=>"tylermarshal",
-     "avatar_url"=>"https://avatars3.githubusercontent.com/u/7504391?v=4",
-     "name"=>"Tyler Madsen",
-     "company"=>nil,
-     "location"=>"Denver, CO",
-     "email"=>"madsen.tyler@gmail.com",
-     "bio"=>"Backend Software Developer & SEO",
-     "public_repos"=>34,
-     "followers"=>3,
-     "following"=>1,
-     "updated_at"=>"2018-01-29T22:06:59Z"}}})
+      omniauth_response
 
       visit "/"
       expect(page.status_code).to eq(200)

@@ -15,10 +15,7 @@ class GithubService
   end
 
   def commit_conn(commit_url)
-    Faraday.new(url: commit_url) do |faraday|
-      faraday.headers['Authorization'] = ["token #{current_user.token}"]
-      faraday.adapter Faraday.default_adapter
-    end
+    json_parse(conn.get(commit_url))
   end
 
   def orgs
